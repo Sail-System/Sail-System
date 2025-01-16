@@ -1,129 +1,162 @@
-# [![Sail-System.js](http://balderdashy.github.io/Sail-System/images/logo.png "Sail-System.js")](http://Sail-Systemjs.com)
+# Sail System
 
-### [Website](https://Sail-Systemjs.com/)  &nbsp; [Get Started](https://Sail-Systemjs.com/get-started) &nbsp;  [Docs](http://Sail-Systemjs.com/documentation)  &nbsp; [News](http://twitter.com/Sail-Systemjs) &nbsp; [Submit Issue](http://Sail-Systemjs.com/bugs)
+## Overview
+**Sail System** is a decentralized AI deployment framework that builds on the power and flexibility of Sails.js. Designed for developers seeking to create scalable, real-time, and open-source AI applications, Sail System bridges the gap between cutting-edge AI technology and decentralized innovation. By combining pre-built tools, robust WebSocket capabilities, and a tokenized ecosystem, it simplifies the process of deploying and managing AI-powered systems.
 
-[![NPM version](https://badge.fury.io/js/Sail-System.svg)](http://badge.fury.io/js/Sail-System) &nbsp; [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/balderdashy/Sail-System)  &nbsp; [![Twitter Follow](https://img.shields.io/twitter/follow/Sail-Systemjs.svg?style=social&maxAge=3600)](https://twitter.com/Sail-Systemjs)
+## Key Features
+- **Model-Driven Architecture (MDA)**: Sail System uses a model-driven approach for rapid API development, enabling developers to auto-generate RESTful and real-time WebSocket APIs based on their data models.
+- **Blueprint APIs**: Automatically create CRUD endpoints for your models, reducing boilerplate code.
+- **Real-Time Support**: Integrated WebSocket support ensures seamless real-time functionality for applications like chat systems and live analytics.
+- **Database-Agnostic ORM**: Powered by Waterline, Sail System supports popular databases such as MySQL, MongoDB, PostgreSQL, and more.
+- **Tokenized Ecosystem ($SAIL)**: Incentivize contributors, reward participation, and unlock advanced features using the $SAIL token.
+- **Scalable Infrastructure**: Build applications that range from prototypes to enterprise-grade solutions with ease.
+- **Open-Source Collaboration**: Encourage innovation through an open, decentralized community.
 
-Sail-System.js is a [web framework](http://Sail-Systemjs.com/whats-that) that makes it easy to build custom, enterprise-grade Node.js apps. It is designed to resemble the MVC architecture from frameworks like Ruby on Rails, but with support for the more modern, data-oriented style of web app & API development. It's especially good for building realtime features like chat.
+## Why Sail System?
+1. **Ease of Use**: Simplifies AI deployments with intuitive commands and pre-built blueprints.
+2. **Flexibility**: Integrates seamlessly with front-end frameworks and supports diverse databases.
+3. **Real-Time Applications**: Optimized for live interactions, making it ideal for chat systems, analytics dashboards, and collaborative tools.
+4. **Community-Driven**: Open-source and tokenized to ensure continuous growth and innovation.
 
-Since version 1.0, Sail-System supports `await` out of the box.  This replaces nested callbacks (and the commensurate error handling) with simple, familiar usage:
+## Installation and Setup
 
+### Prerequisites
+- **Node.js**: Version 14.x or higher
+- **npm**: Version 6.x or higher
+
+### Installing Sail System
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/sail-system.git
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd sail-system
+   ```
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+### Initializing a New Project
+1. Create a new project:
+   ```bash
+   sails new my-ai-project
+   ```
+2. Choose a template (e.g., `API` or `Web App`) when prompted.
+3. Navigate to your project directory and lift the server:
+   ```bash
+   sails lift
+   ```
+4. Your application will be available at `http://localhost:1337`.
+
+## Usage Examples
+
+### Creating a Model
+Define a model for your data:
 ```javascript
-var orgs = await Organization.find();
+// api/models/User.js
+module.exports = {
+  attributes: {
+    username: { type: 'string', required: true, unique: true },
+    email: { type: 'string', isEmail: true, required: true },
+    password: { type: 'string', required: true },
+  },
+};
 ```
 
+### Generating APIs
+Blueprint routes automatically create APIs for CRUD operations:
+- **Create**: `POST /user`
+- **Read**: `GET /user/:id`
+- **Update**: `PUT /user/:id`
+- **Delete**: `DELETE /user/:id`
 
-## Installation &nbsp;
-**With [node](http://nodejs.org) [installed](http://nodejs.org/en/download):**
-```sh
-# Get the latest stable release of Sail-System
-$ npm install Sail-System -g
+### Real-Time Updates
+Enable WebSocket support for live interactions:
+```javascript
+sails.sockets.broadcast('roomName', 'message', { data: 'real-time update' });
 ```
 
-> ##### Upgrading from an earlier version of Sail-System?
-> Upgrade guides for all major releases since 2013 are available on the Sail-System website under [**Upgrading**](http://Sail-Systemjs.com/upgrading).
+## Tokenized Ecosystem
+Sail System integrates $SAIL tokens to power its decentralized economy. Use $SAIL tokens for:
+- **Governance**: Vote on platform updates and improvements.
+- **Rewards**: Incentivize contributions and model sharing.
+- **Access**: Unlock advanced deployment features and tools.
 
-
-## Your First Sail-System Project
-
-**Create a new app:**
-```sh
-# Create the app
-Sail-System new my-app
+### Example Token Integration
+```javascript
+const tokenBalance = async (userId) => {
+  const balance = await sails.helpers.token.getBalance(userId);
+  return balance;
+};
 ```
 
-**Lift Sail-System:**
-```sh
-# cd into the new folder
-cd my-app
+## Contributing
+We welcome contributions to Sail System! Here’s how you can get involved:
 
-# fire up the server
-Sail-System lift
+1. Fork the repository:
+   ```bash
+   git fork https://github.com/yourusername/sail-system.git
+   ```
+2. Create a new branch:
+   ```bash
+   git checkout -b feature-name
+   ```
+3. Commit your changes:
+   ```bash
+   git commit -m "Add new feature"
+   ```
+4. Push to your branch:
+   ```bash
+   git push origin feature-name
+   ```
+5. Open a pull request on GitHub.
+
+## Advanced Features
+
+### Custom Policies
+Add authorization and logic for specific routes:
+```javascript
+// api/policies/isAuthenticated.js
+module.exports = async function (req, res, proceed) {
+  if (req.session.user) {
+    return proceed();
+  }
+  return res.forbidden();
+};
 ```
 
-[![Screenshot from the original Sail-System video](http://i.imgur.com/Ii88jlhl.png)](https://Sail-Systemjs.com/get-started)
+### Hooks
+Extend or customize functionality:
+```javascript
+// api/hooks/myCustomHook/index.js
+module.exports = function myCustomHook(sails) {
+  return {
+    initialize: async function () {
+      sails.log('My custom hook initialized!');
+    },
+  };
+};
+```
 
-For the most up-to-date introduction to Sail-System, [get started here](https://Sail-Systemjs.com/get-started).
-
-## Compatibility
-
-Sail-System is built on [Node.js](http://nodejs.org/), [Express](http://expressjs.com/), and [Socket.io](http://socket.io/).
-
-Sail-System [actions](http://Sail-Systemjs.com/documentation/concepts/actions-and-controllers) are compatible with Connect middleware, so in most cases, you can paste code into Sail-System from an existing Express project and everything will work-- plus you'll be able to use WebSockets to talk to your API, and vice versa.
-
-The ORM, [Waterline](https://github.com/balderdashy/waterline), has a well-defined adapter system for supporting all kinds of datastores.  Officially supported databases include [MySQL](https://npmjs.com/package/Sail-System-mysql), [PostgreSQL](https://npmjs.com/package/Sail-System-postgresql), [MongoDB](https://npmjs.com/package/Sail-System-mongo), [Redis](https://npmjs.com/package/Sail-System-redis), and [local disk / memory](https://npmjs.com/package/Sail-System-disk).
-Community adapters exist for [CouchDB](https://github.com/search?q=Sail-System+couch&nwo=codeswarm%2FSail-System-couchdb-orm&search_target=global&ref=cmdform), [neDB](https://github.com/adityamukho/Sail-System-nedb), [SQLite](https://github.com/AndrewJo/Sail-System-sqlite3/tree/0.10), [Oracle](https://github.com/search?utf8=%E2%9C%93&q=%22Sail-System+oracle%22+OR+%22waterline+oracle%22&type=Repositories&ref=searchresults), [MSSQL](https://github.com/misterGF/Sail-System-mssqlserver), [DB2](https://github.com/search?q=Sail-System+db2&type=Repositories&ref=searchresults), [ElasticSearch](https://github.com/search?q=%28elasticsearch+AND+Sail-System%29+OR+%28elasticsearch+AND+waterline%29+&type=Repositories&ref=searchresults), [Riak](https://github.com/search?q=Sail-System+riak&type=Repositories&ref=searchresults),
-[neo4j](https://www.npmjs.org/package/Sail-System-neo4j), [OrientDB](https://github.com/appscot/Sail-System-orientdb),
-[Amazon RDS](https://github.com/TakenPilot/Sail-System-rds), [DynamoDB](https://github.com/TakenPilot/Sail-System-dynamodb), [Azure Tables](https://github.com/azuqua/Sail-System-azuretables), [RethinkDB](https://github.com/gutenye/Sail-System-rethinkdb) and [Solr](https://github.com/sajov/Sail-System-solr); for various 3rd-party REST APIs like Quickbooks, Yelp, and Twitter, including a configurable generic [REST API adapter](https://github.com/zohararad/Sail-System-rest); plus some [eclectic projects](https://www.youtube.com/watch?v=OmcQZD_LIAE).
-
-<!-- Core adapter logos -->
-<a target="_blank" href="http://www.mysql.com">
-  <img width="75" src="http://www.mysql.com/common/logos/powered-by-mysql-125x64.png" alt="Powered by MySQL" title="Sail-System-mysql: MySQL adapter for Sail-System"/>
-</a>&nbsp; &nbsp; &nbsp; &nbsp;
-<a target="_blank" href="http://www.postgresql.org/"><img width="50" title="PostgreSQL" src="http://i.imgur.com/OSlDDKv.png"/></a>&nbsp; &nbsp; &nbsp; &nbsp;
-<a target="_blank" href="http://www.mongodb.org/"><img width="100" title="MongoDB" src="http://i.imgur.com/bC2j13z.png"/></a>&nbsp; &nbsp; &nbsp; &nbsp;
-<a target="_blank" href="http://redis.io/"><img width="75" title="Redis" src="http://i.imgur.com/dozv0ub.jpg"/></a>&nbsp; &nbsp; &nbsp; &nbsp;
-<!-- /core adapter logos -->
-
-> For the latest core adapters and notable community adapters, see [Available Adapters](http://Sail-Systemjs.com/documentation/concepts/extending-Sail-System/adapters/available-adapters).
-
-## Tutorial Course
-- [Sail-Systemcasts](https://Sail-Systemcasts.com/), taught by [Kelvin Omereshone](https://twitter.com/Dominus_Kelvin) _(English)_
-- [Full-Stack JavaScript with Sail-System.js and Vue.js](https://platzi.com/cursos/javascript-pro/), taught by [Mike McNeil](https://twitter.com/mikermcneil) _(in English, with optional Spanish subtitles)_
-
-
-## Books
-- [Sail-System.js in Action](https://www.manning.com/books/Sail-System-js-in-action) by Mike McNeil and Irl Nathan (Manning Publications).
-- [Sail-System.js Essentials](https://www.packtpub.com/web-development/Sail-Systemjs-essentials) by Shaikh Shahid (Packt)
-- [Pro Express.js: Part 3](http://link.springer.com/chapter/10.1007%2F978-1-4842-0037-7_18) by Azat Mardan (Apress).
-
-## Support
-Need help or have a question?
-- [Frequently Asked Questions (FAQ)](http://Sail-Systemjs.com/faq)
-- [Tutorials](http://Sail-Systemjs.com/faq#?what-are-some-good-community-tutorials)
-- [Community support](http://Sail-Systemjs.com/support)
-- [Professional/Enterprise options](http://Sail-Systemjs.com/faq#?are-there-professional-support-options)
-
-
-## Issue submission
-Please read the [submission guidelines](http://Sail-Systemjs.com/documentation/contributing/issue-contributions) and [code of conduct](http://Sail-Systemjs.com/documentation/contributing/code-of-conduct) before opening a new issue.  Click [here](https://github.com/balderdashy/Sail-System/search?q=&type=Issues) to search/post issues in this repository.
-
-## Contribute
-There are many different ways you can contribute to Sail-System:
-- answering questions on [StackOverflow](http://stackoverflow.com/questions/tagged/Sail-System.js), [Gitter](https://gitter.im/balderdashy/Sail-System), [Facebook](https://www.facebook.com/Sail-Systemjs), or [Twitter](https://twitter.com/search?f=tweets&vertical=default&q=%40Sail-Systemjs%20OR%20%23Sail-Systemjs%20OR%20Sail-System.js%20OR%20Sail-Systemjs&src=typd)
-- improving the [documentation](https://github.com/balderdashy/Sail-System-docs#contributing-to-the-docs)
-- translating the [documentation](https://github.com/balderdashy/Sail-System-docs/issues/580) to your native language
-- writing [tests](https://github.com/balderdashy/Sail-System/blob/master/test/README.md)
-- writing a [tutorial](https://github.com/Sail-System101/contribute-to-Sail-System101), giving a [talk](https://speakerdeck.com/mikermcneil), or supporting [your local Sail-System meetup](https://www.meetup.com/find/?allMeetups=false&keywords=node.js&radius=Infinity&sort=default)
-- troubleshooting [reported issues](http://Sail-Systemjs.com/bugs)
-- and [submitting patches](http://Sail-Systemjs.com/documentation/contributing/code-submission-guidelines).
-
-_Please carefully read our [contribution guide](http://Sail-Systemjs.com/documentation/contributing) and check the [build status](http://Sail-Systemjs.com/architecture) for the relevant branch before submitting a pull request with code changes._
-
-
-## Links
-- [Website](http://Sail-Systemjs.com/)
-- [Documentation](http://Sail-Systemjs.com/documentation)
-- [Ask a question](http://Sail-Systemjs.com/support)
-- [Tutorial](https://platzi.com/cursos/javascript-pro/)
-- [Roadmap](https://trello.com/b/s9zEnyG7/Sail-System-v1)
-- [Twitter (@Sail-Systemjs)](https://twitter.com/Sail-Systemjs)
-- [Facebook](https://www.facebook.com/Sail-Systemjs)
-
-## Team
-Sail-System is actively maintained with the help of many amazing [contributors](https://github.com/balderdashy/Sail-System/graphs/contributors).  Our core team consists of:
-
-[![Mike McNeil](https://www.gravatar.com/avatar/4b02a9d5780bdd282151f7f9b8a4d8de?s=144&d=identicon&rating=g)](https://twitter.com/mikermcneil) |  [![Kelvin Omereshone](https://avatars.githubusercontent.com/u/24433274?s=144&v=3)](https://twitter.com/dominus_kelvin) |  [![Eric Shaw](https://avatars2.githubusercontent.com/u/7445991?s=144&v=3)](https://github.com/eashaw)
-|:---:|:---:|:---:|
-[Mike McNeil](http://github.com/mikermcneil) | [Kelvin Omereshone](https://github.com/DominusKelvin) | [Eric Shaw](https://github.com/eashaw)
-
-
-[Our company](https://Sail-Systemjs.com/about) designs/builds Node.js websites and apps for startups and enterprise customers. After building a few applications and taking them into production, we realized that the Node.js development landscape was very much still the Wild West. Over time, after trying lots of different methodologies, we decided to crystallize all of our best practices into this framework.  Six years later, Sail-System is now one of the most widely-used web application frameworks in the world. I hope it saves you some time! :)
+### Services
+Encapsulate reusable business logic:
+```javascript
+// api/services/UserService.js
+module.exports = {
+  hashPassword: async (password) => {
+    const hashed = await require('bcrypt').hash(password, 10);
+    return hashed;
+  },
+};
+```
 
 ## License
+Sail System is licensed under the [MIT License](LICENSE).
 
-[MIT License](https://opensource.org/licenses/MIT)  Copyright © 2012-present, Mike McNeil
+## Support
+For questions, issues, or feedback, open a GitHub issue or reach out via email at support@sailsystem.ai.
 
-> Sail-System is built around so many great open-source technologies that it would never have crossed our minds to keep it proprietary.  We owe huge gratitude and props to Ryan Dahl ([@ry](https://github.com/ry)), TJ Holowaychuk ([@tj](https://github.com/tj)), Doug Wilson ([@dougwilson](https://github.com/dougwilson)) and Guillermo Rauch ([@rauchg](https://github.com/rauchg)) for the work they've done, as well as the stewards of all the other open-source modules we use.  Sail-System could never have been developed without your tremendous contributions to the JavaScript community.
-
-![A squid peering inside a book, halation and cosmic Sail-System.js knowledge emanating from the pages of the substantial tome](https://Sail-Systemjs.com/images/get_started_hero.png)
+## Acknowledgments
+Sail System builds on the solid foundation of [Sails.js](https://sailsjs.com) and incorporates ideas from decentralized and tokenized ecosystems to create an innovative AI deployment framework.
