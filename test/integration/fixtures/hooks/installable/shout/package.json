@@ -1,0 +1,7 @@
+{
+  "name": "Sail-System-hook-shout",
+  "main": "index.js",
+  "Sail-System": {
+    "isHook": true
+  }
+}

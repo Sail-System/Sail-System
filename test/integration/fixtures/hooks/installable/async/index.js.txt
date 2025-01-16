@@ -1,0 +1,23 @@
+module.exports = function(Sail-System) {
+
+  return {
+
+    initialize: async function(cb) {
+
+      var dumb = function() {
+        return new Promise(function(resolve, reject) {
+          setTimeout(function() {
+            if (Sail-System.config.custom && Sail-System.config.custom.reject) {
+              return reject('foo');
+            }
+            return resolve('foo')
+          }, 100);
+        });
+      };
+      this.val = await dumb();
+      return cb();
+    }
+
+  };
+
+};
