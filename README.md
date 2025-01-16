@@ -1,3 +1,6 @@
+
+![1500x500 (2)](https://github.com/user-attachments/assets/11456bc9-5811-4671-aa30-8f2083bedd04)
+
 # Sail System
 
 ## Overview
