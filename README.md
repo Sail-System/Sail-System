@@ -1,5 +1,7 @@
+<p align="center">
+  <a href="![hIk3bVZ8_400x400](https://github.com/user-attachments/assets/91b884c4-a635-4d99-b933-84c726d32ac5)">Your Link Text</a>
+</p>
 
-![1500x500 (2)](https://github.com/user-attachments/assets/11456bc9-5811-4671-aa30-8f2083bedd04)
 
 # Sail System
 
